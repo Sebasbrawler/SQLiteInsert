@@ -1,11 +1,16 @@
 package com.example.sqliteinsert;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.sqliteinsert.data.UserContract.UserEntity;
+import com.example.sqliteinsert.data.UserContract;
+import static com.example.sqliteinsert.data.UserContract.UserEntity.TABLE_NAME;
 
 public class MainActivity extends AppCompatActivity {
     EditText Name, Pass;
@@ -15,8 +20,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Name= (EditText) findViewById(R.id.editText);
-        Pass= (EditText) findViewById(R.id.editText2);
+        Name= (EditText) findViewById(R.id.editName);
+        Pass= (EditText) findViewById(R.id.editPass);
         helper = new myDbAdapter(this);
     }
 
