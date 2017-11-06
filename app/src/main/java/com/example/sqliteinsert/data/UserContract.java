@@ -10,7 +10,7 @@ import android.provider.BaseColumns;
 /**Inner class that defines the table contents of the userinfo table. */
 public final class UserContract implements BaseColumns {
     public final static String DATABASE_NAME = "employee.db";
-    public final static int DATABASE_VERSION = 5;
+    public final static int DATABASE_VERSION = 7;
 
 
     public final static class UserEntity{

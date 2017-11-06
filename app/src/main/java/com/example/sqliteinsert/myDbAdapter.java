@@ -2,11 +2,14 @@ package com.example.sqliteinsert;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.sqliteinsert.data.UserContract;
 import com.example.sqliteinsert.data.UserContract.UserEntity;
+
+import static com.example.sqliteinsert.data.UserContract.UserEntity.TABLE_NAME;
 
 
 public class myDbAdapter {
@@ -22,18 +25,26 @@ public class myDbAdapter {
         ContentValues contentValues = new ContentValues();
         contentValues.put(myDbHelper.NAME, name);
         contentValues.put(myDbHelper.PASSWORD, password);
-        long id = db.insert(UserEntity.TABLE_NAME, null, contentValues);
+         long id = db.insert(TABLE_NAME, null, contentValues);
         return id;
     }
+
+    public Cursor getData(){
+        SQLiteDatabase db =  helper.getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_NAME;
+        Cursor data = db.rawQuery(query, null);
+        return data;
+    }
+
 
     static class myDbHelper extends SQLiteOpenHelper {
         private static final String UID = UserEntity.UID;
         private static final String NAME = UserEntity.USER_NAME;
         private static final String PASSWORD = UserEntity.USER_PWD;
 
-        private static final String CREATE_TABLE = "CREATE TABLE " + UserEntity.TABLE_NAME +
-                "( " + UserEntity.UID + " INTEGER PRIMARY KEY AUTOINCREMENT ," + UserEntity.USER_NAME + " TEXT, " + UserEntity.USER_PWD + " TEXT;";
-        private static final String DROP_TABLE = "DROP TABLE IF EXISTS " + UserEntity.TABLE_NAME;
+        private static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME +
+                "( " + UserEntity.UID + " INTEGER PRIMARY KEY AUTOINCREMENT ," + UserEntity.USER_NAME + " TEXT, " + UserEntity.USER_PWD + " TEXT)";
+        private static final String DROP_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
         private Context context;
 
         public myDbHelper(Context context) {
@@ -63,6 +74,8 @@ public class myDbAdapter {
                 Message.message(context, "" + e);
             }
         }
+
+
     }
 }
 
