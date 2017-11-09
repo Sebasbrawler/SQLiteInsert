@@ -36,6 +36,18 @@ public class myDbAdapter {
         return data;
     }
 
+    public void updateUser(String oldUser , String NewUser){
+        SQLiteDatabase db = helper.getWritableDatabase();
+        String Query = "Update "+ UserContract.UserEntity.TABLE_NAME + " set " + UserContract.UserEntity.USER_NAME + " = '" + NewUser + "' where "+ UserContract.UserEntity.USER_NAME  + " = " + "'" + oldUser + "'";
+        db.execSQL(Query);
+    }
+
+    public void deleteUser(String username){
+        SQLiteDatabase db = helper.getWritableDatabase();
+        String Query = "DELETE FROM "+ UserContract.UserEntity.TABLE_NAME + " where "+ UserContract.UserEntity.USER_NAME  + " = " + "'" + username + "'";
+        db.execSQL(Query);
+    }
+
 
     static class myDbHelper extends SQLiteOpenHelper {
         private static final String UID = UserEntity.UID;
